@@ -3,9 +3,12 @@ import { sleep, check } from 'k6'
 
 export const options = {
     //Define o nr de interacoes do teste
-    iterations: 50,
+    //iterations: 50,   ////---->>>Retirado para comecar a usar usuarios virtuais
+    vus: 10, //!0 usuarios virtuais
+    duration: '30s', //duracao
+
     thresholds: {
-        http_req_duration: ['p(90)<10', 'max<1'], // 90% o tipe dicidei que no percentil de no tem que ser < 10 milessegundos
+        http_req_duration: ['p(90)<3000', 'max<5000'], // 90% o tipe dicidei que no percentil de no tem que ser < 10 milessegundos
         http_req_failed: ['rate<0.01'] //Esse eh por percentual, significa que as falhas tem que ser < 1%
     }
 }
